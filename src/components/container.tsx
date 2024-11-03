@@ -4,6 +4,8 @@ type ContainerProps = {
 
 export default function Container({ children }: ContainerProps) {
   return (
-    <section className="flex flex-row flex-wrap gap-4">{children}</section>
+    <section className="flex justify-center items-center flex-row flex-wrap gap-4">
+      {children}
+    </section>
   );
 }

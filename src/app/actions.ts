@@ -1,6 +1,5 @@
 "use server";
 
-import { NextApiRequest, NextApiResponse } from "next";
 import SpotifyWebApi from "spotify-web-api-node";
 
 const api = new SpotifyWebApi({
@@ -9,7 +8,13 @@ const api = new SpotifyWebApi({
   redirectUri: process.env.SPOTIFY_REDIRECT,
 });
 
-export async function nowPlaying(req: NextApiRequest, res: NextApiResponse) {
+type SpotifyData = {
+  name: string;
+  images: { url: string }[];
+  artist: string;
+};
+
+export async function nowPlaying(): Promise<SpotifyData | undefined> {
   try {
     const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
     if (!refreshToken) {
@@ -22,7 +27,11 @@ export async function nowPlaying(req: NextApiRequest, res: NextApiResponse) {
     const recentTracks = await api.getMyRecentlyPlayedTracks({
       limit: 1,
     });
-    res.status(200).json(recentTracks.body.items[0].track);
+    return {
+      name: recentTracks.body.items[0].track.name,
+      images: recentTracks.body.items[0].track.album.images,
+      artist: recentTracks.body.items[0].track.artists[0].name,
+    };
   } catch (err) {
     console.log("Something went wrong!", err);
   }
