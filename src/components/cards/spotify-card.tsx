@@ -10,7 +10,11 @@ import { Music } from "lucide-react";
 import Image from "next/image";
 
 export async function SpotifyCard() {
-  const { name, images, artist } = await nowPlaying();
+  const data = await nowPlaying();
+  if (!data) {
+    return <></>;
+  }
+  const { name, images, artist } = data;
 
   return (
     <Card className="md:w-[22rem] h-auto md:h-[18rem] w-full">

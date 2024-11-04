@@ -1,8 +1,12 @@
-import { ContactCard } from "@/components/cards/contact-card";
-import { ProjectsCard } from "@/components/cards/projects-card";
-import { SpotifyCard } from "@/components/cards/spotify-card";
-import { WeatherCard } from "@/components/cards/weather-card";
+import {
+  ProjectsCard,
+  ContactCard,
+  LoadingCard,
+  SpotifyCard,
+  WeatherCard,
+} from "@/components/cards";
 import Container from "@/components/container";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -15,7 +19,9 @@ export default function Home() {
         <Container>
           <ProjectsCard />
           <ContactCard />
-          <SpotifyCard />
+          <Suspense fallback={<LoadingCard />}>
+            <SpotifyCard />
+          </Suspense>
           <WeatherCard />
         </Container>
       </main>
