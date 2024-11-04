@@ -16,6 +16,10 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Philipe Marques",
   description: "Personal website of Philipe Marques",
+  openGraph: {
+    title: "Pamark's Website",
+    description: "Pickleball lover, software engineer",
+  },
 };
 
 export default function RootLayout({
